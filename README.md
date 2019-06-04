@@ -10,18 +10,29 @@ This is the boilerplate for creating an API server in AdonisJs, it comes pre-con
 
 ## Setup
 
-Use the adonis command to install the blueprint
+Clone este repositório e depois siga os seguintes passos:
 
 ```bash
-adonis new yardstick --api-only
+npm install
 ```
 
-or manually clone the repo and then run `npm install`.
+```bash
+cp .env.example .env
+```
 
+```bash
+adonis key:generate
+```
 
-### Migrations
+### Configuração do BD
 
-Run the following command to run startup migrations.
+Rode o comando a baixo para instalar o sqlite.
+
+```js
+adonis install sqlite3
+```
+
+Rode o comando a baixo para rodar as migrações e criar o banco de dados e as tabelas.
 
 ```js
 adonis migration:run

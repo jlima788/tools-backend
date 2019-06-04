@@ -16,8 +16,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('/register', 'AuthController.register')
-Route.post('/authenticate', 'AuthController.authenticate')
+Route.post('/cadastrar', 'AuthController.cadastrar')
+Route.post('/logar', 'AuthController.logar')
 
 Route.group(() => {
   Route.resource('tools', 'ToolController').apiOnly().except(['update', 'show'])

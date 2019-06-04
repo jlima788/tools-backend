@@ -1,0 +1,238 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TOOLS-API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    },
+    {
+      "url": "https://localhost:3000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Acesso aos endpoints para usuários"
+    },
+    {
+      "name": "tools",
+      "description": "Acesso a todos os endpoints de ferramentas"
+    }
+  ],
+  "paths": {
+    "/cadastrar": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "description": "Cadastrar um novo usuário no sistema.\n",
+        "requestBody": {
+          "description": "Colocar o usuario, email e senha",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/Cadastrar"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cadastrado com Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logar": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "description": "Permitir que os usuários efetuem login e recebam um token\n",
+        "requestBody": {
+          "description": "Colocar o email e a senha",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Login com Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Se o usuário não foi encontrado ou com erro durante o login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Se o usuário não for encontrado (credenciais erradas) ou se o usuário não puder fazer o login (cliente não ativo)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools": {
+      "post": {
+        "tags": [
+          "tools"
+        ],
+        "description": "Get a list of all existing users",
+        "responses": {
+          "200": {
+            "description": "Um array de ferramentas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tool"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "email@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        }
+      },
+      "Cadastrar": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "username"
+          },
+          "email": {
+            "type": "string",
+            "example": "email@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        }
+      },
+      "Tool": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Para acessar a API, um token JWT válido deve ser transmitido em todas as consultas\nem 'Authorization' header.\n\n\nUm token JWT válido é gerado pela API e retornado como resposta de uma chamada\npara a rota /logar colocando um usuário e senha válidos.\n\n\nA seguinte sintaxe deve ser usada no 'Authorization' header :\n\n    Bearer: xxxxxx.yyyyyyy.zzzzzz\n",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}

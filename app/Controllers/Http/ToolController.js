@@ -11,18 +11,6 @@ const Tool = use('App/Models/Tool')
  */
 class ToolController {
   /**
-  * @swagger
-  * /tools:
-  *   get:
-  *     tags:
-  *       - Ferramentas
-  *     summary: Listagem de Ferramentas
-  *     responses:
-  *       200:
-  *         description: Mostra a listagem de ferramentas
-  *         example:
-  */
-  /**
    * Show a list of all tools.
    * GET tools
    *
