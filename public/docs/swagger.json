@@ -24,7 +24,7 @@
   ],
   "securityDefinitions": {
     "Bearer": {
-      "description": "Para acessar a API, um token JWT válido deve ser transmitido em todas as consultas\nem 'Authorization' header.\n\n\nUm token JWT válido é gerado pela API e retornado como resposta de uma chamada\npara a rota /logar colocando um usuário e senha válidos.\n\n\nA seguinte sintaxe deve ser usada no 'Authorization' header :\n\n    Bearer: xxxxxx.yyyyyyy.zzzzzz\n",
+      "description": "Para acessar a API, um token JWT válido deve ser transmitido em todas as consultas\nem 'Authorization' header.\n\n\nUm token JWT válido é gerado pela API e retornado como resposta de uma chamada\npara a rota /logar colocando um usuário e senha válidos.\n\n\nA seguinte sintaxe deve ser usada no 'Authorization' header :\n\n    Bearer xxxxxx.yyyyyyy.zzzzzz\n",
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
@@ -107,7 +107,7 @@
             "Bearer": []
           }
         ],
-        "description": "Get a list of all existing users",
+        "description": "Obter uma lista de todas as ferramentas existentes",
         "responses": {
           "200": {
             "description": "Um array de ferramentas",
@@ -129,7 +129,18 @@
             "Bearer": []
           }
         ],
-        "description": "Get a list of all existing users",
+        "description": "Cadastra uma nova ferramenta",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Colocar o título, link, descrição e tags",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ToolCadastrar"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Um array de ferramentas",
@@ -221,22 +232,49 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
+          "type": "integer",
+          "example": 1
         },
         "user_id": {
-          "type": "integer"
+          "type": "integer",
+          "example": 1
         },
         "title": {
-          "type": "string"
+          "type": "string",
+          "example": "hotel"
         },
         "link": {
-          "type": "string"
+          "type": "string",
+          "example": "https://github.com/typicode/hotel"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "example": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.m"
         },
         "tags": {
-          "type": "string"
+          "type": "array",
+          "example": ["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
+        }
+      }
+    },
+    "ToolCadastrar": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "hotel"
+        },
+        "link": {
+          "type": "string",
+          "example": "https://github.com/typicode/hotel"
+        },
+        "description": {
+          "type": "string",
+          "example": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.m"
+        },
+        "tags": {
+          "type": "array",
+          "example": ["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
         }
       }
     }

@@ -26,14 +26,22 @@ adonis key:generate
 
 ### Configuração do BD
 
-Rode o comando a baixo para instalar o sqlite.
+Rode o comando abaixo para instalar o sqlite.
 
 ```js
 adonis install sqlite3
 ```
 
-Rode o comando a baixo para rodar as migrações e criar o banco de dados e as tabelas.
+Rode o comando abaixo para rodar as migrações e criar o banco de dados e as tabelas.
 
 ```js
 adonis migration:run
+```
+
+### Rodar o servidor
+
+Rode o comando abaixo para subir o servidor
+
+```js
+adonis serve --dev
 ```
