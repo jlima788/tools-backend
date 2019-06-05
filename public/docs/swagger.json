@@ -153,7 +153,53 @@
           }
         }
       }
+    },
+    "/tools/:id": {
+    "delete": {
+        "tags": [
+          "tools"
+        ],
+        "summary": "Apaga uma ferramenta",
+        "description": "",
+        "operationId": "deletePet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id para deletar",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Ferramenta não encontrada"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
     }
+
   },
   "definitions": {
     "Cadastrar": {
