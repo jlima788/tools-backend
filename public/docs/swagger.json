@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "title": "TOOLS-API"
   },
-  "host": "localhost:3000",
+  "host": "127.0.0.1:3000",
   "tags": [
     {
       "name": "auth",
@@ -14,10 +14,6 @@
       "name": "tools",
       "description": "Acesso a todos os endpoints de ferramentas"
     }
-  ],
-  "schemes": [
-    "http",
-    "https"
   ],
   "produces": [
     "application/json"
@@ -53,6 +49,12 @@
             "description": "Cadastrado com Sucesso",
             "schema": {
               "$ref": "#/definitions/User"
+            }
+          },
+          "500": {
+            "description": "Usuário/Email já cadastrado",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
