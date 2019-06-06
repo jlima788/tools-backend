@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('/cadastrar', 'AuthController.cadastrar')
+Route.post('/user', 'AuthController.cadastrar')
 Route.post('/logar', 'AuthController.logar')
 
 Route.group(() => {

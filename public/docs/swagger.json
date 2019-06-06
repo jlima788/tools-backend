@@ -31,7 +31,7 @@
     }
   },
   "paths": {
-    "/cadastrar": {
+    "/user": {
       "post": {
         "tags": [
           "auth"
@@ -107,6 +107,7 @@
             "Bearer": []
           }
         ],
+        "summary": "Lista todas as ferramenta",
         "description": "Obter uma lista de todas as ferramentas existentes",
         "responses": {
           "200": {
@@ -129,6 +130,7 @@
             "Bearer": []
           }
         ],
+        "summary": "Cadastra uma ferramenta",
         "description": "Cadastra uma nova ferramenta",
         "parameters": [
           {
@@ -154,52 +156,83 @@
         }
       }
     },
-    "/tools/:id": {
-    "delete": {
+    "/tools/{id}": {
+      "delete": {
+          "tags": [
+            "tools"
+          ],
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Apaga uma ferramenta",
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id da ferramenta para deletar",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "ID fornecido inválido."
+            },
+            "401": {
+              "description": "Não autorizado."
+            },
+            "404": {
+              "description": "Ferramenta não encontrada"
+            }
+          }
+        }
+    },
+    "/tools?tag=node": {
+    "get": {
         "tags": [
           "tools"
         ],
-        "summary": "Apaga uma ferramenta",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Busca uma ferramenta por uma tag digitada",
         "description": "",
-        "operationId": "deletePet",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "api_key",
-            "in": "header",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "petId",
-            "in": "path",
-            "description": "Pet id para deletar",
+            "name": "tag",
+            "in": "query",
+            "description": "Tag da ferramenta que se quer encontrar",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
+          "401": {
+            "description": "Não autorizado."
           },
-          "404": {
-            "description": "Ferramenta não encontrada"
+          "200": {
+            "description": "Um array de ferramentas",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/Tool"
+              }
+            }
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       }
     }
-
   },
   "definitions": {
     "Cadastrar": {
@@ -245,10 +278,12 @@
           "type": "string"
         },
         "created_at": {
-          "type": "datetime"
+          "type": "string",
+          "format": "date-time"
         },
         "update_at": {
-          "type": "datetime"
+          "type": "string",
+          "format": "date-time"
         },
         "id": {
           "type": "integer"
@@ -299,6 +334,9 @@
         },
         "tags": {
           "type": "array",
+          "items": {
+            "type": "string"
+          },
           "example": ["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
         }
       }
@@ -320,6 +358,9 @@
         },
         "tags": {
           "type": "array",
+          "items": {
+            "type": "string"
+          },
           "example": ["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
         }
       }

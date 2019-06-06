@@ -45,3 +45,11 @@ Rode o comando abaixo para subir o servidor
 ```js
 adonis serve --dev
 ```
+
+### Passos para ver a documentação no Swagger
+
+Acesse o endereço abaixo:
+
+```bash
+http://localhost:3000/docs
+```
